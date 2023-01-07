@@ -1,6 +1,6 @@
+import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
-import express from "express";
 import mongoose from "mongoose";
 import helmet from "helmet";
 import cors from "cors";
@@ -15,18 +15,21 @@ import booksRouter from "./routes/books.js";
 
 import notFoundMiddleware from "./middleware/not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
+
+app.use(express.json());
+app.use(helmet());
+app.use(cors());
+app.use(xss());
+
 app.use("/admin/auth", authRouter);
 app.use("/admin/books", booksRouter);
 
 app.use("/", booksRouter);
 
-mongoose.set("strictQuery", true);
-app.use(cors());
-app.use(helmet());
-app.use(xss());
-app.use(express.json());
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
+
+mongoose.set("strictQuery", true);
 
 const start = async () => {
   try {
