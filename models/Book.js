@@ -1,4 +1,3 @@
-import { ObjectId } from "mongoose";
 import mongoose from "mongoose";
 
 const BookSchema = new mongoose.Schema(
