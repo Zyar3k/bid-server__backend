@@ -1,10 +1,12 @@
 import dotenv from "dotenv";
 dotenv.config();
-
 import express from "express";
 import mongoose from "mongoose";
-const app = express();
+import helmet from "helmet";
+import cors from "cors";
+import xss from "xss-clean";
 import connectDB from "./db/connect.js";
+const app = express();
 const mongoUri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.6tpkm.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 const PORT = process.env.PORT || 8888;
 
@@ -14,6 +16,9 @@ import booksRouter from "./routes/books.js";
 import notFoundMiddleware from "./middleware/not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
 
+app.use(helmet());
+app.use(cors());
+app.use(xss());
 app.use(express.json());
 
 app.use("/admin/auth", authRouter);
