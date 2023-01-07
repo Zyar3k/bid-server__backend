@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const express = require("express");
+const mongoose = require("mongoose");
 const app = express();
 const connectDB = require("./db/connect");
 const mongoUri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.6tpkm.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
@@ -21,6 +22,8 @@ app.use("/", booksRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
+
+mongoose.set("strictQuery", true);
 
 const start = async () => {
   try {
