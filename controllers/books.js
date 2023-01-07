@@ -72,5 +72,13 @@ export const updateBook = async (req, res) => {
 };
 
 export const deleteBook = async (req, res) => {
-  res.send("delete Book");
+  const {
+    params: { id: bookId },
+  } = req;
+
+  const book = await Book.findOneAndDelete({ _id: bookId });
+  if (!book) {
+    throw new NotFoundError(`Book with id ${bookId} not found`);
+  }
+  res.status(StatusCodes.OK).json(`Book with id ${bookId} deleted`);
 };
