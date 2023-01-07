@@ -1,17 +1,18 @@
-require("dotenv").config();
+import dotenv from "dotenv";
+dotenv.config();
 
-const express = require("express");
-const mongoose = require("mongoose");
+import express from "express";
+import mongoose from "mongoose";
 const app = express();
-const connectDB = require("./db/connect");
+import connectDB from "./db/connect.js";
 const mongoUri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.6tpkm.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 const PORT = process.env.PORT || 8888;
 
-const authRouter = require("./routes/auth");
-const booksRouter = require("./routes/books");
+import authRouter from "./routes/auth.js";
+import booksRouter from "./routes/books.js";
 
-const notFoundMiddleware = require("./middleware/not-found.js");
-const errorHandlerMiddleware = require("./middleware/error-handler.js");
+import notFoundMiddleware from "./middleware/not-found.js";
+import errorHandlerMiddleware from "./middleware/error-handler.js";
 
 app.use(express.json());
 

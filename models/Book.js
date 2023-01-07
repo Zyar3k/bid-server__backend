@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+import { ObjectId } from "mongoose";
+import mongoose from "mongoose";
 
 const BookSchema = new mongoose.Schema(
   {
@@ -59,4 +60,4 @@ const BookSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Book", BookSchema);
+export default mongoose.model("Book", BookSchema);
